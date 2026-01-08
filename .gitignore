@@ -1,0 +1,4 @@
+/api-gateway/node_modules
+/PythonProject/venv
+/PythonProject/.env
+/react-frontend/node_modules

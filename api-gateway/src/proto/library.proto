@@ -1,0 +1,187 @@
+syntax = "proto3";
+
+package library;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+// Enum for the status of a borrowing.
+enum BorrowingStatus {
+  UNKNOWN = 0;
+  BORROWED = 1;
+  RETURNED = 2;
+}
+
+// Message representing a Book, aligning with the SQLAlchemy model.
+message Book {
+  string id = 1;
+  string title = 2;
+  string author = 3;
+  string published_date = 4;
+  string isbn = 5;
+  bool is_available = 6;
+}
+
+// Message representing a Library Member, aligning with the SQLAlchemy model.
+message Member {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+  string join_date = 4;
+}
+
+// Message representing a Borrow Record, aligning with the SQLAlchemy model.
+message BorrowRecord {
+  string id = 1;
+  string book_id = 2;
+  string member_id = 3;
+  string borrow_date = 4;
+  // Use google.protobuf.Timestamp for return_date to represent optionality and proper datetime handling.
+  google.protobuf.Timestamp return_date = 5; // Updated to Timestamp, will be omitted if not returned
+  BorrowingStatus status = 6; // New status field
+}
+
+// Message combining BorrowRecord with Book and Member details for UI display.
+message BorrowingDetails {
+  BorrowRecord borrow_record = 1;
+  Book book = 2;
+  Member member = 3;
+}
+
+// The Library service definition.
+service LibraryService {
+  // Books
+  rpc CreateBook (CreateBookRequest) returns (CreateBookResponse) {}
+  rpc UpdateBook (UpdateBookRequest) returns (UpdateBookResponse) {}
+  rpc DeleteBook (DeleteBookRequest) returns (google.protobuf.Empty) {}
+  rpc GetBook (GetBookRequest) returns (Book) {}
+  rpc ListBooks (ListBooksRequest) returns (ListBooksResponse) {}
+
+  // Members
+  rpc CreateMember (CreateMemberRequest) returns (CreateMemberResponse) {}
+  rpc UpdateMember (UpdateMemberRequest) returns (UpdateMemberResponse) {}
+  rpc DeleteMember (DeleteMemberRequest) returns (google.protobuf.Empty) {}
+  rpc GetMember (GetMemberRequest) returns (Member) {}
+  rpc ListMembers (ListMembersRequest) returns (ListMembersResponse) {}
+
+  // Borrowing
+  rpc BorrowBook (BorrowBookRequest) returns (BorrowBookResponse) {}
+  rpc ReturnBook (ReturnBookRequest) returns (ReturnBookResponse) {}
+  // Updated RPC for listing all borrowed books with details
+  rpc ListBorrowings (ListBorrowingsRequest) returns (ListBorrowingsResponse) {}
+}
+
+// Request to delete a book.
+message DeleteBookRequest {
+  string id = 1;
+}
+
+// Request to get a single book.
+message GetBookRequest {
+  string id = 1;
+}
+
+// Request to list all books.
+message ListBooksRequest {}
+
+// Response for listing books.
+message ListBooksResponse {
+  repeated Book books = 1;
+}
+
+// Request to update an existing member.
+message UpdateMemberRequest {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+// Response for updating a member.
+message UpdateMemberResponse {
+  Member member = 1;
+}
+
+// Request to delete a member.
+message DeleteMemberRequest {
+  string id = 1;
+}
+
+// Request to get a single member.
+message GetMemberRequest {
+  string id = 1;
+}
+
+// Request to list all members.
+message ListMembersRequest {}
+
+// Response for listing members.
+message ListMembersResponse {
+  repeated Member members = 1;
+}
+
+// Request to create a new book.
+message CreateBookRequest {
+  string title = 1;
+  string author = 2;
+  string published_date = 3;
+  string isbn = 4;
+}
+
+// Response for creating a new book.
+message CreateBookResponse {
+  Book book = 1;
+}
+
+// Request to update an existing book.
+message UpdateBookRequest {
+  string id = 1;
+  string title = 2;
+  string author = 3;
+  string published_date = 4;
+  string isbn = 5;
+}
+
+// Response for updating a book.
+message UpdateBookResponse {
+  Book book = 1;
+}
+
+// Request to create a new library member.
+message CreateMemberRequest {
+  string name = 1;
+  string email = 2;
+}
+
+// Response for creating a new member.
+message CreateMemberResponse {
+  Member member = 1;
+}
+
+// Request to borrow a book.
+message BorrowBookRequest {
+  string book_id = 1;
+  string member_id = 2;
+}
+
+// Response for borrowing a book.
+message BorrowBookResponse {
+  BorrowRecord borrow_record = 1;
+}
+
+// Request to return a book.
+message ReturnBookRequest {
+  string borrow_record_id = 1;
+}
+
+// Response for returning a book.
+message ReturnBookResponse {
+  BorrowRecord borrow_record = 1;
+}
+
+// Request to list all borrowings (updated from ListBorrowedBooksRequest).
+message ListBorrowingsRequest {}
+
+// Response for listing all borrowings (updated from ListBorrowedBooksResponse).
+message ListBorrowingsResponse {
+  repeated BorrowingDetails borrowings = 1; // List of detailed borrowing records
+}

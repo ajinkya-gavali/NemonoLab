@@ -1,0 +1,275 @@
+
+# 🧭 OVERALL IMPLEMENTATION ORDER (Correct Way)
+
+**Why this order?**
+
+* Backend defines truth (schema + rules)
+* gRPC defines contract
+* Node & React depend on backend
+
+### Correct sequence:
+
+```
+1. Python Project Skeleton
+2. Database Configuration (SQLAlchemy)
+3. Database Models (Tables)
+4. gRPC Proto Definition
+5. gRPC Server Implementation
+6. Business Rules + Error Handling
+7. NodeJS API Gateway
+8. React Frontend
+9. README & Run Instructions
+```
+
+Now I’ll give you **step-by-step prompts**, each one **dependent on the previous**.
+
+---
+
+# 1️⃣ STEP 1: Create Python gRPC Project Skeleton
+
+### Goal
+
+* Production-ready Python project structure
+* Logging & env config ready
+* No business logic yet
+
+### Gemini Prompt (STEP 1)
+
+```
+You are a senior Python backend engineer.
+
+Create a production-grade Python project skeleton for a gRPC-based service.
+
+Requirements:
+- Python 3.10+
+- Use virtualenv
+- Follow clean architecture
+- Prepare folders for:
+  - grpc server
+  - services
+  - repositories
+  - database
+  - logging
+- Centralized configuration using environment variables
+- Structured logging using logging module
+- No business logic yet
+
+Expected structure:
+
+backend/
+├── app/
+│   ├── main.py
+│   ├── config.py
+│   ├── logging.py
+│   ├── grpc/
+│   ├── services/
+│   ├── repositories/
+│   ├── db/
+│   └── proto/
+├── requirements.txt
+└── README.md
+
+Include:
+- config.py to load env vars
+- logging setup
+- requirements.txt
+- Instructions to run server
+```
+
+---
+
+# 2️⃣ STEP 2: Database Configuration Using SQLAlchemy
+
+### Goal
+
+* PostgreSQL connection
+* SQLAlchemy session management
+* Reusable DB dependency
+
+### Mandatory Tech
+
+* SQLAlchemy
+* psycopg2 or asyncpg
+
+### Gemini Prompt (STEP 2)
+
+```
+You are extending an existing Python backend project.
+
+Task:
+Add PostgreSQL database configuration using SQLAlchemy.
+
+Requirements:
+- Use SQLAlchemy ORM
+- Create database engine using env variables:
+  DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD
+- Create session factory
+- Add Base declarative class
+- Ensure connection pooling
+- Add proper exception handling and logging
+- Code should live inside app/db/
+
+Expected files:
+- app/db/database.py
+- app/db/base.py
+
+Do NOT create tables yet.
+Ensure the setup is reusable across services.
+```
+
+---
+
+# 3️⃣ STEP 3: Define Database Models (Books, Members, BorrowRecords)
+
+### Goal
+
+* ORM tables
+* Relationships
+* Constraints to avoid double borrowing
+
+### Gemini Prompt (STEP 3)
+
+```
+You are working on a Python backend using SQLAlchemy.
+
+Task:
+Create database models for a library system.
+
+Entities:
+1. Book
+   - id (PK)
+   - title
+   - author
+   - isbn
+   - is_available
+   - created_at
+
+2. Member
+   - id (PK)
+   - name
+   - email
+   - phone
+   - created_at
+
+3. BorrowRecord
+   - id (PK)
+   - book_id (FK)
+   - member_id (FK)
+   - borrowed_at
+   - returned_at (nullable)
+
+Requirements:
+- Use SQLAlchemy ORM
+- Define proper relationships
+- Add indexes where necessary
+- Prevent borrowing the same book twice using logic-friendly constraints
+- Add __repr__ methods
+- Place models inside app/db/models/
+
+Include migration-friendly structure (Alembic ready).
+```
+
+---
+
+# 4️⃣ STEP 4: Define gRPC Proto Files (Contract First)
+
+### Goal
+
+* API contract aligned with DB
+* No implementation yet
+
+### Gemini Prompt (STEP 4)
+
+```
+You are designing gRPC APIs for an existing Python backend.
+
+Task:
+Create Protocol Buffer (.proto) definitions for a Library Management System.
+
+Requirements:
+- Messages must align with SQLAlchemy models:
+  Book, Member, BorrowRecord
+- Define LibraryService with RPC methods:
+  - CreateBook
+  - UpdateBook
+  - CreateMember
+  - BorrowBook
+  - ReturnBook
+  - ListBorrowedBooks
+- Include request/response messages
+- Use proper field numbering
+- Add comments for each RPC
+- Place proto file under app/proto/
+
+Do NOT implement server logic yet.
+```
+
+---
+
+# 5️⃣ STEP 5: Implement gRPC Server Bootstrap
+
+### Goal
+
+* Start gRPC server
+* Register services
+* Health check ready
+
+### Gemini Prompt (STEP 5)
+
+```
+You are continuing a Python gRPC backend.
+
+Task:
+Implement the gRPC server bootstrap.
+
+Requirements:
+- Load generated proto files
+- Start gRPC server on port from env variable GRPC_PORT
+- Register LibraryService
+- Add graceful shutdown handling
+- Add logging on server start/stop
+- Code should be placed in app/grpc/server.py
+- main.py should start the server
+
+Do not implement business logic yet.
+```
+
+---
+
+# 6️⃣ STEP 6: Implement Business Logic + Error Handling
+
+### Goal
+
+* Core assignment logic
+* Validation & error cases
+
+### Gemini Prompt (STEP 6)
+
+```
+You are now implementing core business logic for a Library Management System.
+
+Task:
+Implement all gRPC service methods using SQLAlchemy repositories.
+
+Mandatory rules:
+- A book cannot be borrowed if is_available = false
+- On borrow:
+  - create BorrowRecord
+  - mark book as unavailable
+- On return:
+  - update returned_at
+  - mark book as available
+- Validate inputs
+- Raise appropriate gRPC errors:
+  - NOT_FOUND
+  - INVALID_ARGUMENT
+  - FAILED_PRECONDITION
+- Log every operation and error
+
+Use layered architecture:
+- grpc handlers
+- services
+- repositories
+
+Add unit-test friendly code structure.
+```
