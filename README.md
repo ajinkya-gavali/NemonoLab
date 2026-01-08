@@ -31,7 +31,7 @@ The system is composed of three main services:
 Ensure you have the following installed on your system:
 
 *   **Git:** For cloning the repository.
-*   **Python 3.8+:** With `pip` for the Python gRPC server.
+*   **Python 3.10+:** With `pip` for the Python gRPC server.
 *   **Node.js (LTS version recommended):** With `npm` for the API Gateway and React frontend.
 
 ## 3. Getting Started

@@ -3,4 +3,4 @@
 /PythonProject/.env
 /react-frontend/node_modules
 **/__pycache__
-context.md
+llm_context.md
