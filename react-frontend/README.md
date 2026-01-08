@@ -1,73 +1,89 @@
-# React + TypeScript + Vite
+# React Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This directory contains the React.js frontend application for the Library Management System. It provides the user interface for interacting with the API Gateway to manage books, members, and borrowing records.
 
-Currently, two official plugins are available:
+## Table of Contents
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1.  [Prerequisites](#1-prerequisites)
+2.  [Setup](#2-setup)
+    *   [Install Dependencies](#install-dependencies)
+3.  [Running the Application](#3-running-the-application)
+4.  [Environment Variables](#4-environment-variables)
+5.  [Project Structure](#5-project-structure)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 1. Prerequisites
 
-## Expanding the ESLint configuration
+Before you begin, ensure you have the following installed:
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+*   Node.js (LTS version recommended)
+*   npm (Node Package Manager)
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 2. Setup
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Install Dependencies
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Navigate to the `react-frontend/` directory and install the Node.js dependencies:
+
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 3. Running the Application
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+To start the React development server, ensure you have installed the dependencies and that both the Python gRPC server and Node.js API Gateway are running (see their respective `README.md` files for instructions).
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+From the `react-frontend/` directory, run:
+
+```bash
+npm run dev
+```
+
+The application will typically open in your default web browser at `http://localhost:5173/` (or another available port).
+
+## 4. Environment Variables
+
+The React frontend uses the following environment variables, typically configured in a `.env` file in the project root:
+
+*   `VITE_API_BASE_URL`: The base URL of the API Gateway (default: `http://localhost:3000/api`)
+
+You can create a `.env` file in the `react-frontend/` directory like this:
+
+```
+VITE_API_BASE_URL=http://localhost:3000/api
+```
+
+## 5. Project Structure
+
+```
+react-frontend/
+├── .env                  # Environment variables for Vite
+├── package.json          # Project metadata and dependencies
+├── package-lock.json     # Records the exact versions of dependencies
+├── README.md             # This README file
+├── index.html            # Main HTML file
+├── vite.config.ts        # Vite configuration
+├── tsconfig.json         # TypeScript configuration
+├── tsconfig.node.json
+├── node_modules/         # Installed Node.js modules
+├── public/               # Static assets
+│   └── vite.svg
+└── src/
+    ├── api.js            # API client for interacting with the API Gateway
+    ├── App.css           # Global CSS for the application
+    ├── App.tsx           # Main application component and routing setup
+    ├── main.tsx          # Entry point for the React application
+    ├── index.css         # Main CSS file
+    ├── assets/           # Static assets (e.g., images)
+    │   └── react.svg
+    └── components/       # Reusable React components
+        ├── BookList.jsx
+        ├── BorrowBook.jsx
+        ├── CreateBook.jsx
+        ├── CreateMember.jsx
+        ├── MemberList.jsx
+        ├── UpdateBook.jsx
+        ├── UpdateMember.jsx
+        └── BorrowingList.jsx
 ```

@@ -1,47 +1,80 @@
-# API Gateway for Library Service
+# API Gateway (Node.js)
 
-This is an Express.js API gateway that acts as a bridge between a RESTful API and a backend gRPC service for a library management system.
+This directory contains the Node.js API Gateway, which acts as a Backend-for-Frontend (BFF). It exposes REST APIs to the React frontend, translates these into gRPC calls, and communicates with the Python gRPC server.
 
-## Prerequisites
+## Table of Contents
 
-- Node.js (v14 or higher)
-- A running instance of the Python gRPC backend service.
+1.  [Prerequisites](#1-prerequisites)
+2.  [Setup](#2-setup)
+    *   [Install Dependencies](#install-dependencies)
+3.  [Running the Server](#3-running-the-server)
+4.  [Environment Variables](#4-environment-variables)
+5.  [Project Structure](#5-project-structure)
 
-## Setup
+---
 
-1.  **Clone the repository (if applicable) and navigate to the `api-gateway` directory.**
+## 1. Prerequisites
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
+Before you begin, ensure you have the following installed:
 
-3.  **Configure environment variables:**
-    Create a `.env` file in the root of the `api-gateway` directory and add the following variables. Adjust the values if your setup is different.
+*   Node.js (LTS version recommended)
+*   npm (Node Package Manager)
 
-    ```env
-    # The port for the API Gateway to listen on
-    API_GATEWAY_PORT=3000
+## 2. Setup
 
-    # The address of the backend gRPC server
-    GRPC_SERVER_ADDRESS=localhost:50051
-    ```
+### Install Dependencies
 
-## Running the Gateway
+Navigate to the `api-gateway/` directory and install the Node.js dependencies:
 
-Once the setup is complete and the backend gRPC service is running, you can start the API gateway:
+```bash
+npm install
+```
+
+## 3. Running the Server
+
+To start the API Gateway, ensure you have installed the dependencies and the Python gRPC server is running (see its `README.md` for instructions).
+
+From the `api-gateway/` directory, run:
 
 ```bash
 npm start
 ```
 
-The gateway will start, and you should see the following message in your console:
-`API Gateway listening on port 3000`
+The API Gateway will start on the address specified in its configuration (default: `localhost:3000`).
 
-## API Endpoints
+## 4. Environment Variables
 
--   `POST /api/books`: Create a new book.
--   `POST /api/members`: Create a new member.
--   `POST /api/borrow`: Borrow a book.
--   `POST /api/return`: Return a book.
--   `GET /api/members/:id/borrowed-books`: List all books borrowed by a specific member.
+The API Gateway uses the following environment variables, typically managed via a `.env` file in the project root:
+
+*   `PORT`: The port for the API Gateway (default: `3000`)
+*   `GRPC_SERVER_ADDRESS`: The address of the Python gRPC server (default: `localhost:50051`)
+
+You can create a `.env` file in the `api-gateway/` directory like this:
+
+```
+PORT=3000
+GRPC_SERVER_ADDRESS=localhost:50051
+```
+
+## 5. Project Structure
+
+```
+api-gateway/
+├── .env                  # Environment variables
+├── package.json          # Project metadata and dependencies
+├── package-lock.json     # Records the exact versions of dependencies
+├── README.md             # This README file
+├── node_modules/         # Installed Node.js modules
+└── src/
+    ├── app.js            # Main Express application entry point
+    ├── controllers/      # Handles incoming REST requests and interacts with gRPC client
+    │   └── libraryController.js
+    ├── grpc/             # gRPC client setup and protobuf loading
+    │   └── grpcClient.js
+    ├── middleware/       # Express middleware (e.g., error handling)
+    │   └── errorHandler.js
+    ├── proto/            # Protobuf definitions (copied from Python project)
+    │   └── library.proto
+    └── routes/           # Defines REST API routes
+        └── libraryRoutes.js
+```
