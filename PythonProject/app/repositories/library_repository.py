@@ -1,3 +1,4 @@
+from sqlalchemy import not_
 from sqlalchemy.orm import Session, joinedload
 from app.db.models import Book, Member, BorrowRecord, BorrowingStatus
 from typing import List, Optional
@@ -60,6 +61,22 @@ class LibraryRepository:
         books = self.db_session.query(Book).all()
         logger.info(f"Found {len(books)} books.")
         return books
+
+    def list_available_books(self) -> List[Book]:
+        logger.info("Listing all books currently available for borrowing.")
+        
+        # Subquery to find book_ids that are currently borrowed
+        subquery = self.db_session.query(BorrowRecord.book_id).filter(
+            BorrowRecord.status == BorrowingStatus.BORROWED
+        ).distinct().subquery()
+
+        # Query for books where their id is NOT in the list of currently borrowed books
+        available_books = self.db_session.query(Book).filter(
+            not_(Book.id.in_(subquery))
+        ).all()
+        
+        logger.info(f"Found {len(available_books)} books available for borrowing.")
+        return available_books
 
     def list_all_members(self) -> List[Member]:
         logger.info("Listing all members")

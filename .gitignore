@@ -2,3 +2,4 @@
 /PythonProject/venv
 /PythonProject/.env
 /react-frontend/node_modules
+**/__pycache__

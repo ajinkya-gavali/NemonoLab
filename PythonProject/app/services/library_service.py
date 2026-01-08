@@ -68,6 +68,12 @@ class LibraryService:
         logger.info(f"Found {len(books)} books.")
         return books
 
+    def list_available_books(self):
+        logger.info("Listing all available books.")
+        books = self.repository.list_available_books()
+        logger.info(f"Found {len(books)} available books.")
+        return books
+
     def list_members(self):
         logger.info("Listing all members.")
         members = self.repository.list_all_members()

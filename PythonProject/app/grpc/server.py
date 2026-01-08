@@ -90,6 +90,16 @@ class LibraryServiceServicer(library_pb2_grpc.LibraryServiceServicer):
         response = self._execute_with_service(context, action)
         return response or library_pb2.ListBooksResponse()
 
+    def ListAvailableBooks(self, request, context):
+        def action(service):
+            logger.info("Listing all available books")
+            books = service.list_available_books()
+            logger.info(f"Listed {len(books)} available books")
+            return library_pb2.ListAvailableBooksResponse(books=[self._to_book_proto(book) for book in books])
+        
+        response = self._execute_with_service(context, action)
+        return response or library_pb2.ListAvailableBooksResponse()
+
     def ListMembers(self, request, context):
         def action(service):
             logger.info("Listing all members")

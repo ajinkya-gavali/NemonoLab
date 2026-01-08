@@ -94,6 +94,18 @@ const listBooks = (req, res, next) => {
     });
 };
 
+const listAvailableBooks = (req, res, next) => {
+    console.log(`src/controllers/libraryController.js: listAvailableBooks: called`);
+    grpcClient.ListAvailableBooks({}, (error, response) => {
+        if (error) {
+            console.error(`src/controllers/libraryController.js: listAvailableBooks: Error:`, error);
+            return next(error);
+        }
+        console.log(`src/controllers/libraryController.js: listAvailableBooks: returning response: ${JSON.stringify(response.books)}`);
+        res.json(response.books);
+    });
+};
+
 const updateMember = (req, res, next) => {
     console.log(`src/controllers/libraryController.js: updateMember: called with params: ${JSON.stringify(req.params)} and body: ${JSON.stringify(req.body)}`);
     const { id } = req.params; // Get ID from URL parameters
@@ -208,6 +220,7 @@ module.exports = {
     deleteBook,
     getBook,
     listBooks,
+    listAvailableBooks, // New
     createMember,
     updateMember,
     deleteMember,

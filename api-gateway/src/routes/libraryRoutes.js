@@ -8,6 +8,9 @@ router.post('/books', libraryController.createBook);
 // GET /books
 router.get('/books', libraryController.listBooks);
 
+// GET /available-books
+router.get('/available-books', libraryController.listAvailableBooks);
+
 // GET /books/:id
 router.get('/books/:id', libraryController.getBook);
 

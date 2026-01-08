@@ -26,15 +26,15 @@ from google.protobuf import timestamp_pb2 as google_dot_protobuf_dot_timestamp__
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rlibrary.proto\x12\x07library\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"m\n\x04\x42ook\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06\x61uthor\x18\x03 \x01(\t\x12\x16\n\x0epublished_date\x18\x04 \x01(\t\x12\x0c\n\x04isbn\x18\x05 \x01(\t\x12\x14\n\x0cis_available\x18\x06 \x01(\x08\"D\n\x06Member\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x11\n\tjoin_date\x18\x04 \x01(\t\"\xae\x01\n\x0c\x42orrowRecord\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07\x62ook_id\x18\x02 \x01(\t\x12\x11\n\tmember_id\x18\x03 \x01(\t\x12\x13\n\x0b\x62orrow_date\x18\x04 \x01(\t\x12/\n\x0breturn_date\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x06status\x18\x06 \x01(\x0e\x32\x18.library.BorrowingStatus\"~\n\x10\x42orrowingDetails\x12,\n\rborrow_record\x18\x01 \x01(\x0b\x32\x15.library.BorrowRecord\x12\x1b\n\x04\x62ook\x18\x02 \x01(\x0b\x32\r.library.Book\x12\x1f\n\x06member\x18\x03 \x01(\x0b\x32\x0f.library.Member\"\x1f\n\x11\x44\x65leteBookRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x1c\n\x0eGetBookRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x12\n\x10ListBooksRequest\"1\n\x11ListBooksResponse\x12\x1c\n\x05\x62ooks\x18\x01 \x03(\x0b\x32\r.library.Book\">\n\x13UpdateMemberRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\"7\n\x14UpdateMemberResponse\x12\x1f\n\x06member\x18\x01 \x01(\x0b\x32\x0f.library.Member\"!\n\x13\x44\x65leteMemberRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x1e\n\x10GetMemberRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x14\n\x12ListMembersRequest\"7\n\x13ListMembersResponse\x12 \n\x07members\x18\x01 \x03(\x0b\x32\x0f.library.Member\"X\n\x11\x43reateBookRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0e\n\x06\x61uthor\x18\x02 \x01(\t\x12\x16\n\x0epublished_date\x18\x03 \x01(\t\x12\x0c\n\x04isbn\x18\x04 \x01(\t\"1\n\x12\x43reateBookResponse\x12\x1b\n\x04\x62ook\x18\x01 \x01(\x0b\x32\r.library.Book\"d\n\x11UpdateBookRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06\x61uthor\x18\x03 \x01(\t\x12\x16\n\x0epublished_date\x18\x04 \x01(\t\x12\x0c\n\x04isbn\x18\x05 \x01(\t\"1\n\x12UpdateBookResponse\x12\x1b\n\x04\x62ook\x18\x01 \x01(\x0b\x32\r.library.Book\"2\n\x13\x43reateMemberRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\"7\n\x14\x43reateMemberResponse\x12\x1f\n\x06member\x18\x01 \x01(\x0b\x32\x0f.library.Member\"7\n\x11\x42orrowBookRequest\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\t\x12\x11\n\tmember_id\x18\x02 \x01(\t\"B\n\x12\x42orrowBookResponse\x12,\n\rborrow_record\x18\x01 \x01(\x0b\x32\x15.library.BorrowRecord\"-\n\x11ReturnBookRequest\x12\x18\n\x10\x62orrow_record_id\x18\x01 \x01(\t\"B\n\x12ReturnBookResponse\x12,\n\rborrow_record\x18\x01 \x01(\x0b\x32\x15.library.BorrowRecord\"\x17\n\x15ListBorrowingsRequest\"G\n\x16ListBorrowingsResponse\x12-\n\nborrowings\x18\x01 \x03(\x0b\x32\x19.library.BorrowingDetails*:\n\x0f\x42orrowingStatus\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0c\n\x08\x42ORROWED\x10\x01\x12\x0c\n\x08RETURNED\x10\x02\x32\xb5\x07\n\x0eLibraryService\x12G\n\nCreateBook\x12\x1a.library.CreateBookRequest\x1a\x1b.library.CreateBookResponse\"\x00\x12G\n\nUpdateBook\x12\x1a.library.UpdateBookRequest\x1a\x1b.library.UpdateBookResponse\"\x00\x12\x42\n\nDeleteBook\x12\x1a.library.DeleteBookRequest\x1a\x16.google.protobuf.Empty\"\x00\x12\x33\n\x07GetBook\x12\x17.library.GetBookRequest\x1a\r.library.Book\"\x00\x12\x44\n\tListBooks\x12\x19.library.ListBooksRequest\x1a\x1a.library.ListBooksResponse\"\x00\x12M\n\x0c\x43reateMember\x12\x1c.library.CreateMemberRequest\x1a\x1d.library.CreateMemberResponse\"\x00\x12M\n\x0cUpdateMember\x12\x1c.library.UpdateMemberRequest\x1a\x1d.library.UpdateMemberResponse\"\x00\x12\x46\n\x0c\x44\x65leteMember\x12\x1c.library.DeleteMemberRequest\x1a\x16.google.protobuf.Empty\"\x00\x12\x39\n\tGetMember\x12\x19.library.GetMemberRequest\x1a\x0f.library.Member\"\x00\x12J\n\x0bListMembers\x12\x1b.library.ListMembersRequest\x1a\x1c.library.ListMembersResponse\"\x00\x12G\n\nBorrowBook\x12\x1a.library.BorrowBookRequest\x1a\x1b.library.BorrowBookResponse\"\x00\x12G\n\nReturnBook\x12\x1a.library.ReturnBookRequest\x1a\x1b.library.ReturnBookResponse\"\x00\x12S\n\x0eListBorrowings\x12\x1e.library.ListBorrowingsRequest\x1a\x1f.library.ListBorrowingsResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rlibrary.proto\x12\x07library\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bgoogle/protobuf/empty.proto\"m\n\x04\x42ook\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06\x61uthor\x18\x03 \x01(\t\x12\x16\n\x0epublished_date\x18\x04 \x01(\t\x12\x0c\n\x04isbn\x18\x05 \x01(\t\x12\x14\n\x0cis_available\x18\x06 \x01(\x08\"D\n\x06Member\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\x12\x11\n\tjoin_date\x18\x04 \x01(\t\"\xae\x01\n\x0c\x42orrowRecord\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0f\n\x07\x62ook_id\x18\x02 \x01(\t\x12\x11\n\tmember_id\x18\x03 \x01(\t\x12\x13\n\x0b\x62orrow_date\x18\x04 \x01(\t\x12/\n\x0breturn_date\x18\x05 \x01(\x0b\x32\x1a.google.protobuf.Timestamp\x12(\n\x06status\x18\x06 \x01(\x0e\x32\x18.library.BorrowingStatus\"~\n\x10\x42orrowingDetails\x12,\n\rborrow_record\x18\x01 \x01(\x0b\x32\x15.library.BorrowRecord\x12\x1b\n\x04\x62ook\x18\x02 \x01(\x0b\x32\r.library.Book\x12\x1f\n\x06member\x18\x03 \x01(\x0b\x32\x0f.library.Member\"\x1f\n\x11\x44\x65leteBookRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x1c\n\x0eGetBookRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x12\n\x10ListBooksRequest\"1\n\x11ListBooksResponse\x12\x1c\n\x05\x62ooks\x18\x01 \x03(\x0b\x32\r.library.Book\"\x1b\n\x19ListAvailableBooksRequest\":\n\x1aListAvailableBooksResponse\x12\x1c\n\x05\x62ooks\x18\x01 \x03(\x0b\x32\r.library.Book\">\n\x13UpdateMemberRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\x0c\n\x04name\x18\x02 \x01(\t\x12\r\n\x05\x65mail\x18\x03 \x01(\t\"7\n\x14UpdateMemberResponse\x12\x1f\n\x06member\x18\x01 \x01(\x0b\x32\x0f.library.Member\"!\n\x13\x44\x65leteMemberRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x1e\n\x10GetMemberRequest\x12\n\n\x02id\x18\x01 \x01(\t\"\x14\n\x12ListMembersRequest\"7\n\x13ListMembersResponse\x12 \n\x07members\x18\x01 \x03(\x0b\x32\x0f.library.Member\"X\n\x11\x43reateBookRequest\x12\r\n\x05title\x18\x01 \x01(\t\x12\x0e\n\x06\x61uthor\x18\x02 \x01(\t\x12\x16\n\x0epublished_date\x18\x03 \x01(\t\x12\x0c\n\x04isbn\x18\x04 \x01(\t\"1\n\x12\x43reateBookResponse\x12\x1b\n\x04\x62ook\x18\x01 \x01(\x0b\x32\r.library.Book\"d\n\x11UpdateBookRequest\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0e\n\x06\x61uthor\x18\x03 \x01(\t\x12\x16\n\x0epublished_date\x18\x04 \x01(\t\x12\x0c\n\x04isbn\x18\x05 \x01(\t\"1\n\x12UpdateBookResponse\x12\x1b\n\x04\x62ook\x18\x01 \x01(\x0b\x32\r.library.Book\"2\n\x13\x43reateMemberRequest\x12\x0c\n\x04name\x18\x01 \x01(\t\x12\r\n\x05\x65mail\x18\x02 \x01(\t\"7\n\x14\x43reateMemberResponse\x12\x1f\n\x06member\x18\x01 \x01(\x0b\x32\x0f.library.Member\"7\n\x11\x42orrowBookRequest\x12\x0f\n\x07\x62ook_id\x18\x01 \x01(\t\x12\x11\n\tmember_id\x18\x02 \x01(\t\"B\n\x12\x42orrowBookResponse\x12,\n\rborrow_record\x18\x01 \x01(\x0b\x32\x15.library.BorrowRecord\"-\n\x11ReturnBookRequest\x12\x18\n\x10\x62orrow_record_id\x18\x01 \x01(\t\"B\n\x12ReturnBookResponse\x12,\n\rborrow_record\x18\x01 \x01(\x0b\x32\x15.library.BorrowRecord\"\x17\n\x15ListBorrowingsRequest\"G\n\x16ListBorrowingsResponse\x12-\n\nborrowings\x18\x01 \x03(\x0b\x32\x19.library.BorrowingDetails*:\n\x0f\x42orrowingStatus\x12\x0b\n\x07UNKNOWN\x10\x00\x12\x0c\n\x08\x42ORROWED\x10\x01\x12\x0c\n\x08RETURNED\x10\x02\x32\x96\x08\n\x0eLibraryService\x12G\n\nCreateBook\x12\x1a.library.CreateBookRequest\x1a\x1b.library.CreateBookResponse\"\x00\x12G\n\nUpdateBook\x12\x1a.library.UpdateBookRequest\x1a\x1b.library.UpdateBookResponse\"\x00\x12\x42\n\nDeleteBook\x12\x1a.library.DeleteBookRequest\x1a\x16.google.protobuf.Empty\"\x00\x12\x33\n\x07GetBook\x12\x17.library.GetBookRequest\x1a\r.library.Book\"\x00\x12\x44\n\tListBooks\x12\x19.library.ListBooksRequest\x1a\x1a.library.ListBooksResponse\"\x00\x12_\n\x12ListAvailableBooks\x12\".library.ListAvailableBooksRequest\x1a#.library.ListAvailableBooksResponse\"\x00\x12M\n\x0c\x43reateMember\x12\x1c.library.CreateMemberRequest\x1a\x1d.library.CreateMemberResponse\"\x00\x12M\n\x0cUpdateMember\x12\x1c.library.UpdateMemberRequest\x1a\x1d.library.UpdateMemberResponse\"\x00\x12\x46\n\x0c\x44\x65leteMember\x12\x1c.library.DeleteMemberRequest\x1a\x16.google.protobuf.Empty\"\x00\x12\x39\n\tGetMember\x12\x19.library.GetMemberRequest\x1a\x0f.library.Member\"\x00\x12J\n\x0bListMembers\x12\x1b.library.ListMembersRequest\x1a\x1c.library.ListMembersResponse\"\x00\x12G\n\nBorrowBook\x12\x1a.library.BorrowBookRequest\x1a\x1b.library.BorrowBookResponse\"\x00\x12G\n\nReturnBook\x12\x1a.library.ReturnBookRequest\x1a\x1b.library.ReturnBookResponse\"\x00\x12S\n\x0eListBorrowings\x12\x1e.library.ListBorrowingsRequest\x1a\x1f.library.ListBorrowingsResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'library_pb2', _globals)
 if not _descriptor._USE_C_DESCRIPTORS:
   DESCRIPTOR._loaded_options = None
-  _globals['_BORROWINGSTATUS']._serialized_start=1716
-  _globals['_BORROWINGSTATUS']._serialized_end=1774
+  _globals['_BORROWINGSTATUS']._serialized_start=1805
+  _globals['_BORROWINGSTATUS']._serialized_end=1863
   _globals['_BOOK']._serialized_start=88
   _globals['_BOOK']._serialized_end=197
   _globals['_MEMBER']._serialized_start=199
@@ -51,42 +51,46 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_LISTBOOKSREQUEST']._serialized_end=655
   _globals['_LISTBOOKSRESPONSE']._serialized_start=657
   _globals['_LISTBOOKSRESPONSE']._serialized_end=706
-  _globals['_UPDATEMEMBERREQUEST']._serialized_start=708
-  _globals['_UPDATEMEMBERREQUEST']._serialized_end=770
-  _globals['_UPDATEMEMBERRESPONSE']._serialized_start=772
-  _globals['_UPDATEMEMBERRESPONSE']._serialized_end=827
-  _globals['_DELETEMEMBERREQUEST']._serialized_start=829
-  _globals['_DELETEMEMBERREQUEST']._serialized_end=862
-  _globals['_GETMEMBERREQUEST']._serialized_start=864
-  _globals['_GETMEMBERREQUEST']._serialized_end=894
-  _globals['_LISTMEMBERSREQUEST']._serialized_start=896
-  _globals['_LISTMEMBERSREQUEST']._serialized_end=916
-  _globals['_LISTMEMBERSRESPONSE']._serialized_start=918
-  _globals['_LISTMEMBERSRESPONSE']._serialized_end=973
-  _globals['_CREATEBOOKREQUEST']._serialized_start=975
-  _globals['_CREATEBOOKREQUEST']._serialized_end=1063
-  _globals['_CREATEBOOKRESPONSE']._serialized_start=1065
-  _globals['_CREATEBOOKRESPONSE']._serialized_end=1114
-  _globals['_UPDATEBOOKREQUEST']._serialized_start=1116
-  _globals['_UPDATEBOOKREQUEST']._serialized_end=1216
-  _globals['_UPDATEBOOKRESPONSE']._serialized_start=1218
-  _globals['_UPDATEBOOKRESPONSE']._serialized_end=1267
-  _globals['_CREATEMEMBERREQUEST']._serialized_start=1269
-  _globals['_CREATEMEMBERREQUEST']._serialized_end=1319
-  _globals['_CREATEMEMBERRESPONSE']._serialized_start=1321
-  _globals['_CREATEMEMBERRESPONSE']._serialized_end=1376
-  _globals['_BORROWBOOKREQUEST']._serialized_start=1378
-  _globals['_BORROWBOOKREQUEST']._serialized_end=1433
-  _globals['_BORROWBOOKRESPONSE']._serialized_start=1435
-  _globals['_BORROWBOOKRESPONSE']._serialized_end=1501
-  _globals['_RETURNBOOKREQUEST']._serialized_start=1503
-  _globals['_RETURNBOOKREQUEST']._serialized_end=1548
-  _globals['_RETURNBOOKRESPONSE']._serialized_start=1550
-  _globals['_RETURNBOOKRESPONSE']._serialized_end=1616
-  _globals['_LISTBORROWINGSREQUEST']._serialized_start=1618
-  _globals['_LISTBORROWINGSREQUEST']._serialized_end=1641
-  _globals['_LISTBORROWINGSRESPONSE']._serialized_start=1643
-  _globals['_LISTBORROWINGSRESPONSE']._serialized_end=1714
-  _globals['_LIBRARYSERVICE']._serialized_start=1777
-  _globals['_LIBRARYSERVICE']._serialized_end=2726
+  _globals['_LISTAVAILABLEBOOKSREQUEST']._serialized_start=708
+  _globals['_LISTAVAILABLEBOOKSREQUEST']._serialized_end=735
+  _globals['_LISTAVAILABLEBOOKSRESPONSE']._serialized_start=737
+  _globals['_LISTAVAILABLEBOOKSRESPONSE']._serialized_end=795
+  _globals['_UPDATEMEMBERREQUEST']._serialized_start=797
+  _globals['_UPDATEMEMBERREQUEST']._serialized_end=859
+  _globals['_UPDATEMEMBERRESPONSE']._serialized_start=861
+  _globals['_UPDATEMEMBERRESPONSE']._serialized_end=916
+  _globals['_DELETEMEMBERREQUEST']._serialized_start=918
+  _globals['_DELETEMEMBERREQUEST']._serialized_end=951
+  _globals['_GETMEMBERREQUEST']._serialized_start=953
+  _globals['_GETMEMBERREQUEST']._serialized_end=983
+  _globals['_LISTMEMBERSREQUEST']._serialized_start=985
+  _globals['_LISTMEMBERSREQUEST']._serialized_end=1005
+  _globals['_LISTMEMBERSRESPONSE']._serialized_start=1007
+  _globals['_LISTMEMBERSRESPONSE']._serialized_end=1062
+  _globals['_CREATEBOOKREQUEST']._serialized_start=1064
+  _globals['_CREATEBOOKREQUEST']._serialized_end=1152
+  _globals['_CREATEBOOKRESPONSE']._serialized_start=1154
+  _globals['_CREATEBOOKRESPONSE']._serialized_end=1203
+  _globals['_UPDATEBOOKREQUEST']._serialized_start=1205
+  _globals['_UPDATEBOOKREQUEST']._serialized_end=1305
+  _globals['_UPDATEBOOKRESPONSE']._serialized_start=1307
+  _globals['_UPDATEBOOKRESPONSE']._serialized_end=1356
+  _globals['_CREATEMEMBERREQUEST']._serialized_start=1358
+  _globals['_CREATEMEMBERREQUEST']._serialized_end=1408
+  _globals['_CREATEMEMBERRESPONSE']._serialized_start=1410
+  _globals['_CREATEMEMBERRESPONSE']._serialized_end=1465
+  _globals['_BORROWBOOKREQUEST']._serialized_start=1467
+  _globals['_BORROWBOOKREQUEST']._serialized_end=1522
+  _globals['_BORROWBOOKRESPONSE']._serialized_start=1524
+  _globals['_BORROWBOOKRESPONSE']._serialized_end=1590
+  _globals['_RETURNBOOKREQUEST']._serialized_start=1592
+  _globals['_RETURNBOOKREQUEST']._serialized_end=1637
+  _globals['_RETURNBOOKRESPONSE']._serialized_start=1639
+  _globals['_RETURNBOOKRESPONSE']._serialized_end=1705
+  _globals['_LISTBORROWINGSREQUEST']._serialized_start=1707
+  _globals['_LISTBORROWINGSREQUEST']._serialized_end=1730
+  _globals['_LISTBORROWINGSRESPONSE']._serialized_start=1732
+  _globals['_LISTBORROWINGSRESPONSE']._serialized_end=1803
+  _globals['_LIBRARYSERVICE']._serialized_start=1866
+  _globals['_LIBRARYSERVICE']._serialized_end=2912
 # @@protoc_insertion_point(module_scope)

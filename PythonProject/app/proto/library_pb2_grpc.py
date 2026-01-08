@@ -61,6 +61,11 @@ class LibraryServiceStub(object):
                 request_serializer=library__pb2.ListBooksRequest.SerializeToString,
                 response_deserializer=library__pb2.ListBooksResponse.FromString,
                 _registered_method=True)
+        self.ListAvailableBooks = channel.unary_unary(
+                '/library.LibraryService/ListAvailableBooks',
+                request_serializer=library__pb2.ListAvailableBooksRequest.SerializeToString,
+                response_deserializer=library__pb2.ListAvailableBooksResponse.FromString,
+                _registered_method=True)
         self.CreateMember = channel.unary_unary(
                 '/library.LibraryService/CreateMember',
                 request_serializer=library__pb2.CreateMemberRequest.SerializeToString,
@@ -133,6 +138,12 @@ class LibraryServiceServicer(object):
         raise NotImplementedError('Method not implemented!')
 
     def ListBooks(self, request, context):
+        """Missing associated documentation comment in .proto file."""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def ListAvailableBooks(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -216,6 +227,11 @@ def add_LibraryServiceServicer_to_server(servicer, server):
                     servicer.ListBooks,
                     request_deserializer=library__pb2.ListBooksRequest.FromString,
                     response_serializer=library__pb2.ListBooksResponse.SerializeToString,
+            ),
+            'ListAvailableBooks': grpc.unary_unary_rpc_method_handler(
+                    servicer.ListAvailableBooks,
+                    request_deserializer=library__pb2.ListAvailableBooksRequest.FromString,
+                    response_serializer=library__pb2.ListAvailableBooksResponse.SerializeToString,
             ),
             'CreateMember': grpc.unary_unary_rpc_method_handler(
                     servicer.CreateMember,
@@ -394,6 +410,33 @@ class LibraryService(object):
             '/library.LibraryService/ListBooks',
             library__pb2.ListBooksRequest.SerializeToString,
             library__pb2.ListBooksResponse.FromString,
+            options,
+            channel_credentials,
+            insecure,
+            call_credentials,
+            compression,
+            wait_for_ready,
+            timeout,
+            metadata,
+            _registered_method=True)
+
+    @staticmethod
+    def ListAvailableBooks(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(
+            request,
+            target,
+            '/library.LibraryService/ListAvailableBooks',
+            library__pb2.ListAvailableBooksRequest.SerializeToString,
+            library__pb2.ListAvailableBooksResponse.FromString,
             options,
             channel_credentials,
             insecure,

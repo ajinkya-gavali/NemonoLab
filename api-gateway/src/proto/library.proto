@@ -56,6 +56,7 @@ service LibraryService {
   rpc DeleteBook (DeleteBookRequest) returns (google.protobuf.Empty) {}
   rpc GetBook (GetBookRequest) returns (Book) {}
   rpc ListBooks (ListBooksRequest) returns (ListBooksResponse) {}
+  rpc ListAvailableBooks (ListAvailableBooksRequest) returns (ListAvailableBooksResponse) {}
 
   // Members
   rpc CreateMember (CreateMemberRequest) returns (CreateMemberResponse) {}
@@ -86,6 +87,14 @@ message ListBooksRequest {}
 
 // Response for listing books.
 message ListBooksResponse {
+  repeated Book books = 1;
+}
+
+// Request to list only available books.
+message ListAvailableBooksRequest {}
+
+// Response for listing available books.
+message ListAvailableBooksResponse {
   repeated Book books = 1;
 }
 
